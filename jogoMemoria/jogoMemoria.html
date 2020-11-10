@@ -1,0 +1,101 @@
+﻿<!doctype html>
+<html>
+	<head>
+		<title>Jogo da Memória</title>
+		<script>
+			var jogadas = 1;
+			var linha = 0;
+			var coluna = 0;
+			var linha2 = 0;
+			var coluna2 = 0;
+			var jogador =0;
+			var j1 = 0;
+			var j2 = 0;
+			var mat=[
+							["i1.jpg", "i3.jpg"],
+							["i2.jpg", "i1.jpg"],
+							["i3.jpg", "i2.jpg"]
+						  ];
+			function mostrar(lin , col)
+			{
+				document.getElementById("f" +lin+col).src = mat[lin][col];
+				
+				if(jogadas == 1)
+				{
+					linha = lin;
+					coluna = col;
+					jogadas++;
+				}
+				else if(jogadas == 2)
+				{
+					jogador++;
+					//verificar se clicou em lugares diferentes
+					if(linha == lin && coluna == col)
+					{
+						alert("escolha outra figura");
+					}
+					else 	if(mat[linha][coluna] == mat[lin][col])
+					{
+						jogadas = 1;
+						
+						//acertou
+						//computar ponto para o jogador
+						if(jogador%2 != 0)
+						{
+							j1++;
+						}
+						else
+						{
+							j2++;
+						}
+						if(j1+j2 == 3)
+						{
+							//resultado
+							if(j1 > j2)
+							{
+								alert("Primeiro Jogador Ganhou");
+							}
+							else
+							{
+								alert("Segundo Jogador Ganhou");
+							}
+						}
+						
+					}
+					else
+					{
+						jogadas = 1;
+						linha2 = lin;
+						coluna2 = col;
+						setTimeout("desvirar()", 1000);
+					}
+					
+				}
+				
+			}//fim mostrar
+			function desvirar()
+			{
+				//desvirar a figura
+				document.getElementById("f" + linha + coluna).src = "i5.jpg";
+				document.getElementById("f" + linha2 + coluna2).src = "i5.jpg";
+			}
+		</script>
+	</head>
+	<body>
+		<h1>Jogo da Memória</h1>
+		<table>
+			<tr>
+				<td><img src="i5.jpg" onclick="mostrar(0,0)" id="f00"></td>
+				<td><img src="i5.jpg" onclick="mostrar(0,1)" id="f01"></td>
+			</tr>
+			<tr>
+				<td><img src="i5.jpg" onclick="mostrar(1,0)" id="f10"></td>
+				<td><img src="i5.jpg" onclick="mostrar(1,1)" id="f11"></td>
+			</tr>
+			<tr>
+				<td><img src="i5.jpg" onclick="mostrar(2,0)" id="f20"></td>
+				<td><img src="i5.jpg" onclick="mostrar(2,1)" id="f21"></td>
+			</tr>
+		</table>
+	</body>
+</html>
